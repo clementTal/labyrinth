@@ -28,7 +28,6 @@ function login()  {
     //up
     console.log(gameGrid.length);
     if (event.keyCode === 40){
-      console.log('up!');
       if (player.y < gameGrid.length-1) {
         player.y++;
       } else {
@@ -37,7 +36,6 @@ function login()  {
     }
     //down
     if (event.keyCode === 38){
-      console.log('down!');
       if (player.y != 0) {
         player.y--;
       } else {
@@ -46,7 +44,6 @@ function login()  {
     }
     //left
     if (event.keyCode === 37){
-      console.log('left!');
       if (player.x != 0) {
         player.x--;
       } else {
@@ -55,7 +52,6 @@ function login()  {
     }
     //right
     if (event.keyCode === 39){
-      console.log('right!');
       if (player.x < gameGrid[0].length-1) {
         player.x++;
       } else {
