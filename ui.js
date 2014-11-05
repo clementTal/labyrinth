@@ -15,13 +15,13 @@ var players=[
 		name:"thomas",
 		x:0,
 		y:0,
-		tileId:1
+		color: "blue"
 	},
 	{
 		name:"clement",
 		x:0,
 		y:0,
-		tileId:2
+		color: "red"
 	}
 ];
 
@@ -56,14 +56,14 @@ function showPlayer(){
 	for(var i = 0;i<players.length; i++){
 		var tiles = document.getElementsByClassName('tile');
 		for(var j = 0;j<tiles.length; j++){
-			tiles[j].classList.remove(players[i].name);
+			tiles[j].classList.remove(players[i].color);
 		}
 	}
 	
 	for(var i = 0;i<players.length; i++){
 		var playerTile = document.getElementById(players[i].x + '-' + players[i].y);
 		if(playerTile)
-			playerTile.classList.add(players[i].name);
+			playerTile.classList.add(players[i].color);
 	}
 	
 }
