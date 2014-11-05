@@ -1,0 +1,40 @@
+<html>
+<head>
+<script type="text/javascript" async="" src="synchro.js"></script>
+<script type="text/javascript" async="" src="ui.js"></script>
+    <script src='https://cdn.firebase.com/js/client/1.1.1/firebase.js'></script>
+		
+
+    <style type="text/css">
+		#game-container{
+			margin:20px;
+		}
+		.tile{
+			width:50px;
+			height:50px;
+			display:inline-block;
+			margin:0;
+			padding:0;
+			border:1px solid grey;
+		}
+		.tile.t-0{
+			background-color:antiquewhite;
+			
+		}
+		.tile.clement{
+			background-color:red;
+		}
+		.tile.thomas{
+			background-color:blue;
+		}
+		.tile.clement.thomas{
+			background-color:violet;
+		}
+    </style>
+</head>
+<body>
+	Entrez votre nom:
+	<input type="text" id="nom-joueur"></input> <button id='login'>Login</button>
+	<div id="game-container"></div>
+</body>
+</html>
