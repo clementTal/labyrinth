@@ -1,8 +1,13 @@
 var playersData;
 var mapData;
+var iAmMaster = true;
+var randomNumber;
 function initSynchro(){
+  var allDataBase = new Firebase('https://resplendent-inferno-5296.firebaseio.com');
   playersData = new Firebase('https://resplendent-inferno-5296.firebaseio.com/players');
   mapData = new Firebase('https://resplendent-inferno-5296.firebaseio.com/map');
+  allDataBase.remove();
+  getMaster();
   initPlayersHandler('child_changed');
   initPlayersHandler('child_added');
 }
@@ -24,6 +29,7 @@ function getPlayer(){
 * Log user and init key handler
 */
 function login()  {
+  //Init player position
 
   window.addEventListener("keydown", function(event) {
     //down
@@ -81,12 +87,11 @@ function sendPosition(player)  {
   var playerData = playersData.child(player.name);
   var playersTemp = {};
   for (var i = 0; i < players.length; i++) {
-
     if (players[i].name === player.name) {
      setPlayerFromServer(player, playersTemp);
    }
  }
- playerData.update(playersTemp);
+ playerData.set(playersTemp);
 }
 
 /**
@@ -126,6 +131,24 @@ function saveMap(map) {
 */
 function initMapHandler(handlerName) {
   mapData.on(handlerName, function(snapshot) {
-    displayMap(snapshot);
+    updateMap(snapshot);
   });
+}
+
+
+/**
+* Set the master of the game (who can generate the map)
+*/
+function getMaster() {
+  var randomDb = new Firebase('https://resplendent-inferno-5296.firebaseio.com');
+  randomNumber = Math.floor(Math.random() * (1000));
+  playersData.on('child_added', function(snapshot) {
+      iAmMaster = false;
+    if (randomNumber > snapshot) {
+      iAmMaster = true;
+    }
+  });
+  randomDb.push(randomNumber);
+
+
 }
