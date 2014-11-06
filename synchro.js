@@ -1,34 +1,13 @@
 var myDataRef;
 function initSynchro(){
   myDataRef = new Firebase('https://resplendent-inferno-5296.firebaseio.com/');
-
-  //get Data
-  myDataRef.on('child_changed', function(snapshot) {
-    var player = snapshot.val();
-    for (var i = 0; i < players.length; i++) {
-      if (players[i].name === player.name) {
-          players[i].x = player.x;
-          players[i].y = player.y;
-          players[i].direction = player.direction;
-          players[i].moves = player.moves;
-      }
-    }
-  });
-
-   myDataRef.on('child_added', function(snapshot) {
-    var player = snapshot.val();
-    for (var i = 0; i < players.length; i++) {
-      if (players[i].name === player.name) {
-          players[i].x = player.x;
-          players[i].y = player.y;
-          players[i].direction = player.direction;
-          players[i].moves = player.moves;
-      }
-    }
-  });
-
+  initHandler('child_changed');
+  initHandler('child_added');
 }
 
+/**
+* get a copy of the current player
+*/
 function getPlayer(){
 	var player;
 	for (var i = 0; i < players.length; i++){
@@ -39,79 +18,96 @@ function getPlayer(){
 	return player;
 }
 
-//log new player on the game
+/**
+* Log user and init key handler
+*/
 function login()  {
 
   window.addEventListener("keydown", function(event) {
     //down
-	var player = getPlayer();
-	if(!player.moves){
-		console.log(gameGrid.length);
-		if (event.keyCode === 40){
-		  if (player.y < gameGrid.length-1) {
-			player.moves = true;
-			player.direction = 'down';
-			player.y++;
-		  } else {
-			player.y = 0;
-		  }
-		}
+    var player = getPlayer();
+    if(!player.moves){
+      if (event.keyCode === 40){
+        if (player.y < gameGrid.length-1) {
+         player.moves = true;
+         player.direction = 'down';
+         player.y++;
+       } else {
+         player.y = 0;
+       }
+     }
 		//up
 		if (event.keyCode === 38){
-		  if (player.y != 0) {
-			player.moves = true;
-			player.direction = 'up';
-			player.y--;
-		  } else {
-			player.y = gameGrid.length-1;
-		  }
-		}
+      if (player.y != 0) {
+       player.moves = true;
+       player.direction = 'up';
+       player.y--;
+     } else {
+       player.y = gameGrid.length-1;
+     }
+   }
 		//left
 		if (event.keyCode === 37){
 			player.moves = true;
 			player.direction = 'left';
-		  if (player.x != 0) {
-			player.x--;
-		  } else {
-			player.x = gameGrid[0].length-1;
-		  }
-		}
+      if (player.x != 0) {
+       player.x--;
+     } else {
+       player.x = gameGrid[0].length-1;
+     }
+   }
 		//right
 		if (event.keyCode === 39){
 			player.moves = true;
 			player.direction = 'right';
-		  if (player.x < gameGrid[0].length-1) {
-			player.x++;
-		  } else {
-			player.x = 0;
-		  }
-		}
+      if (player.x < gameGrid[0].length-1) {
+       player.x++;
+     } else {
+       player.x = 0;
+     }
+   }
 
-    var payer = {
-      name: "",
-      position:  {
-        x: "",
-        y: "",
-        direction: "",
-        moves: ""
-      }
+   sendPosition(player);
+ }
+}, false);
+}
+
+/**
+* save position ^^
+*/
+function sendPosition(player)  {
+  var playerData = myDataRef.child(player.name);
+  var playersTemp = {};
+  for (var i = 0; i < players.length; i++) {
+
+    if (players[i].name === player.name) {
+     setPlayerFromServer(player, playersTemp);
+   }
+ }
+ playerData.update(playersTemp);
+}
+
+/**
+* init firebase handler
+*/
+function initHandler(handlerName) {
+ myDataRef.on(handlerName, function(snapshot) {
+  var player = snapshot.val();
+  for (var i = 0; i < players.length; i++) {
+    if (players[i].name === player.name) {
+      setPlayerFromServer(players[i], player);
     }
+  }
+});
+}
 
-    var playerData = myDataRef.child(player.name);
-    var playersTemp = {};
-		for (var i = 0; i < players.length; i++) {
-      
-		  if (players[i].name === player.name) {
-			 playersTemp.x = player.x;
-       playersTemp.y = player.y;
-       playersTemp.direction = player.direction;
-       playersTemp.moves = player.moves;
-       playersTemp.name = player.name;
-       
-		  }
-		}
-		playerData.set(playersTemp);
-    console.info('set');
-	}
-  }, false);
+/**
+* Create or update player obj from server
+*/
+function setPlayerFromServer(playerFrom, playerTo) {
+  playerTo.x = playerFrom.x;
+  playerTo.y = playerFrom.y;
+  playerTo.direction = playerFrom.direction;
+  playerTo.moves = playerFrom.moves;
+  playerTo.name = playerFrom.name;  
 }
