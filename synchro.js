@@ -95,7 +95,7 @@ function initHandler(handlerName) {
   var player = snapshot.val();
   for (var i = 0; i < players.length; i++) {
     if (players[i].name === player.name) {
-      setPlayerFromServer(players[i], player);
+      setPlayerFromServer(player, players[i]);
     }
   }
 });
