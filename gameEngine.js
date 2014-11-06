@@ -1,5 +1,7 @@
 var img = new Image();   // Crée un nouvel objet Image
 img.src = 'indiana_jones.gif'; // Définit le chemin vers sa source
+var mapSprite =  new Image();   // Crée un nouvel objet Image
+mapSprite.src = 'images/map-sprite.png'; // Définit le chemin vers sa source
 
 var gameEngine = (function(){
 	var realGameWidth;
@@ -98,15 +100,8 @@ function drawPlayers(players,ctx){
 }
 
 function drawTile(x,y,tileId,ctx){
-	ctx.beginPath();
-		ctx.fillStyle = "antiquewhite";
-		ctx.fillRect(x*tileSize,y*tileSize,tileSize,tileSize);
-	ctx.closePath();
-	
-	ctx.beginPath();
-		ctx.strokeStyle = "grey";
-		ctx.strokeRect(x*tileSize,y*tileSize,tileSize,tileSize);
-	ctx.closePath();
+	var spriteSize = 40;
+	ctx.drawImage(mapSprite, tileId*spriteSize, 0, spriteSize, spriteSize, x*spriteSize, y*spriteSize, spriteSize, spriteSize);
 }
 
 function drawPlayer(player,ctx){
@@ -173,3 +168,17 @@ function updatePlayer(player){
 	
 }
 
+function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateRandomGrid(gridWidth,gridHeight){
+	var grid = [];
+	for(var i = 0; i< gridHeight; i++){
+		grid.push([]);
+		for(var j = 0; j< gridWidth; j++){
+			grid[i].push(getRandomNumber(0,15));
+		}
+	}
+	return grid;
+}
