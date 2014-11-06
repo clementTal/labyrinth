@@ -6,7 +6,7 @@ function initSynchro(){
   myDataRef.on('child_changed', function(snapshot) {
     var player = snapshot.val();
     for (var i = 0; i < players.length; i++) {
-      if (players[i].name === player.name) {
+      if (players[i].name === player.name && player.name !== getNomJoueur()) {
         players[i] = player;
       }
     }
