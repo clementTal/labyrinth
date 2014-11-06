@@ -17,7 +17,7 @@ function getPlayer(){
 	var player;
 	for (var i = 0; i < players.length; i++){
 		if (players[i].name == getNomJoueur()) {
-			player = players[i];
+			player = JSON.parse(JSON.stringify(players[i]));
 		}
 	}
 	return player;
@@ -71,12 +71,13 @@ function login()  {
 		  }
 		}
 
-		for (var i = 0; i < players.length; i++) {
-		  if (players[i].name === player.name) {
-			players[i] = player;
+    var playersTemp = JSON.parse(JSON.stringify(players));
+		for (var i = 0; i < playersTemp.length; i++) {
+		  if (playersTemp[i].name === player.name) {
+			playersTemp[i] = player;
 		  }
 		}
-		myDataRef.set(players);
+		myDataRef.set(playersTemp);
 	}
   }, false);
 }
