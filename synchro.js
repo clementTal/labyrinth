@@ -7,9 +7,7 @@ function initSynchro(){
     var player = snapshot.val();
     for (var i = 0; i < players.length; i++) {
       if (players[i].name === player.name) {
-        if(!player.moves){
           players[i] = player;
-        }
       }
     }
   });
