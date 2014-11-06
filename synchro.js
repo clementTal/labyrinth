@@ -26,6 +26,7 @@ function initSynchro(){
       }
     }
   });
+
 }
 
 function getPlayer(){
@@ -99,7 +100,7 @@ function login()  {
     var playerData = myDataRef.child(player.name);
     var playersTemp = {};
 		for (var i = 0; i < players.length; i++) {
-      playersTemp = {};
+      
 		  if (players[i].name === player.name) {
 			 playersTemp.x = player.x;
        playersTemp.y = player.y;
@@ -109,7 +110,7 @@ function login()  {
        
 		  }
 		}
-		playerData.update(playersTemp);
+		playerData.set(playersTemp);
     console.info('set');
 	}
   }, false);
