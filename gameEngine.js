@@ -133,7 +133,7 @@ function updatePlayer(player){
 			}else{
 				player.xReal = player.x*tileSize;
 				player.moves=false;
-				playeruUdated = true;
+				playerUpdated = true;
 			}
 		/* case right */
 		}else if(player.direction == 'right'){
@@ -142,7 +142,7 @@ function updatePlayer(player){
 			}else{
 				player.xReal = player.x*tileSize;
 				player.moves=false;
-				playeruUdated = true;
+				playerUpdated = true;
 			}
 		/* case down */	
 		}else if(player.direction == 'down'){
@@ -151,7 +151,7 @@ function updatePlayer(player){
 			}else{
 				player.yReal = player.y*tileSize;
 				player.moves=false;
-				playeruUdated = true;
+				playerUpdated = true;
 			}
 		/* case up */	
 		}else if(player.direction == 'up'){
@@ -160,12 +160,12 @@ function updatePlayer(player){
 			}else{
 				player.yReal = player.y*tileSize;
 				player.moves=false;
-				playeruUdated = true;
+				playerUpdated = true;
 			}
 		}
-		if(playerUpdated){
+		/*if(playerUpdated){
 			myDataRef.push(player);
-		}
+		}*/
 		
 		
 	}
