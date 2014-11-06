@@ -1,13 +1,18 @@
 <html>
 <head>
+<script type="text/javascript" async="" src="gameEngine.js"></script>
 <script type="text/javascript" async="" src="synchro.js"></script>
 <script type="text/javascript" async="" src="ui.js"></script>
     <script src='https://cdn.firebase.com/js/client/1.1.1/firebase.js'></script>
 		
 
     <style type="text/css">
+		body{
+			margin:0;
+			padding:0;
+		}
 		#game-container{
-			margin:20px;
+			margin-top:20px;
 		}
 		.tile{
 			width:50px;
@@ -35,6 +40,8 @@
 <body>
 	Entrez votre nom:
 	<input type="text" id="nom-joueur"></input> <button id='login'>Login</button>
-	<div id="game-container"></div>
+	<canvas id="game-container" width="800" height="480">
+            Le navigateur que vous utilisez est une grosse bouse, merci d'utiliser un navigateur décent.
+        </canvas>
 </body>
 </html>

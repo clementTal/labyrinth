@@ -10,22 +10,23 @@ function initSynchro(){
         players[i] = player;
       }
     }
-    showPlayer();
   });
 }
-
+function getPlayer(){
+	var player;
+	for (var i = 0; i < players.length; i++){
+		if (players[i].name == getNomJoueur()) {
+			player = players[i];
+		}
+	}
+	return player;
+}
 //log new player on the game
 function login()  {
-  var player;
-
-  for (var i = 0; i < players.length; i++){
-    if (players[i].name == getNomJoueur()) {
-      player = players[i];
-    }
-  }
 
   window.addEventListener("keydown", function(event) {
     //up
+	var player = getPlayer();
     console.log(gameGrid.length);
     if (event.keyCode === 40){
       if (player.y < gameGrid.length-1) {
