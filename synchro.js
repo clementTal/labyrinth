@@ -14,6 +14,7 @@ function initSynchro(){
       }
     }
   });
+}
 
 function getPlayer(){
 	var player;
