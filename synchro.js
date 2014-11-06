@@ -27,46 +27,56 @@ function getPlayer(){
 function login()  {
 
   window.addEventListener("keydown", function(event) {
-    //up
-	var player = getPlayer();
-    console.log(gameGrid.length);
-    if (event.keyCode === 40){
-      if (player.y < gameGrid.length-1) {
-        player.y++;
-      } else {
-        player.y = 0;
-      }
-    }
     //down
-    if (event.keyCode === 38){
-      if (player.y != 0) {
-        player.y--;
-      } else {
-        player.y = gameGrid.length-1;
-      }
-    }
-    //left
-    if (event.keyCode === 37){
-      if (player.x != 0) {
-        player.x--;
-      } else {
-        player.x = gameGrid[0].length-1;
-      }
-    }
-    //right
-    if (event.keyCode === 39){
-      if (player.x < gameGrid[0].length-1) {
-        player.x++;
-      } else {
-        player.x = 0;
-      }
-    }
+	var player = getPlayer();
+	if(!player.moves){
+		console.log(gameGrid.length);
+		if (event.keyCode === 40){
+		  if (player.y < gameGrid.length-1) {
+			player.moves = true;
+			player.direction = 'down';
+			player.y++;
+		  } else {
+			player.y = 0;
+		  }
+		}
+		//up
+		if (event.keyCode === 38){
+		  if (player.y != 0) {
+			player.moves = true;
+			player.direction = 'up';
+			player.y--;
+		  } else {
+			player.y = gameGrid.length-1;
+		  }
+		}
+		//left
+		if (event.keyCode === 37){
+			player.moves = true;
+			player.direction = 'left';
+		  if (player.x != 0) {
+			player.x--;
+		  } else {
+			player.x = gameGrid[0].length-1;
+		  }
+		}
+		//right
+		if (event.keyCode === 39){
+			player.moves = true;
+			player.direction = 'right';
+		  if (player.x < gameGrid[0].length-1) {
+			player.x++;
+		  } else {
+			player.x = 0;
+		  }
+		}
 
-    for (var i = 0; i < players.length; i++) {
-      if (players[i].name === player.name) {
-        players[i] = player;
-      }
-    }
-    myDataRef.set(players);
+		for (var i = 0; i < players.length; i++) {
+		  if (players[i].name === player.name) {
+			players[i] = player;
+		  }
+		}
+		myDataRef.set(players);
+	}
   }, false);
 }
