@@ -12,6 +12,7 @@ function initSynchro(){
     }
   });
 }
+
 function getPlayer(){
 	var player;
 	for (var i = 0; i < players.length; i++){
@@ -21,6 +22,7 @@ function getPlayer(){
 	}
 	return player;
 }
+
 //log new player on the game
 function login()  {
 

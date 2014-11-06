@@ -23,7 +23,8 @@ var players=[
 		tileId:1,
 		xReal:0,
 		yReal:0,
-		direction:""
+		direction:"",
+		moves: false
 	},
 	{
 		name:"clement",
@@ -35,7 +36,8 @@ var players=[
 		tileId:2,
 		xReal:0,
 		yReal:0,
-		direction:""
+		direction:"",
+		moves: false
 	}
 ];
 
