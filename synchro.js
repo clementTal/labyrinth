@@ -14,6 +14,18 @@ function initSynchro(){
       }
     }
   });
+
+   myDataRef.on('child_added', function(snapshot) {
+    var player = snapshot.val();
+    for (var i = 0; i < players.length; i++) {
+      if (players[i].name === player.name) {
+          players[i].x = player.x;
+          players[i].y = player.y;
+          players[i].direction = player.direction;
+          players[i].moves = player.moves;
+      }
+    }
+  });
 }
 
 function getPlayer(){
@@ -74,25 +86,30 @@ function login()  {
 		  }
 		}
 
-    /*var playerTemp1 = {x: 0, y: 0};
-    var playerTemp2 = {x: 0, y: 0};
-    playerTemp1.x = players[0].x
-    playerTemp1.y = players[0].y
-    playerTemp2.x = players[0].x
-    playerTemp2.y = players[0].y */
-    var playersTemp = [];
+    var payer = {
+      name: "",
+      position:  {
+        x: "",
+        y: "",
+        direction: "",
+        moves: ""
+      }
+    }
+
+    var playerData = myDataRef.child(player.name);
+    var playersTemp = {};
 		for (var i = 0; i < players.length; i++) {
-      playersTemp[i] = {};
+      playersTemp = {};
 		  if (players[i].name === player.name) {
-			 playersTemp[i].x = player.x;
-       playersTemp[i].y = player.y;
-       playersTemp[i].name = player.name;
-       playersTemp[i].direction = player.direction;
-       playersTemp[i].moves = player.moves;
+			 playersTemp.x = player.x;
+       playersTemp.y = player.y;
+       playersTemp.direction = player.direction;
+       playersTemp.moves = player.moves;
+       playersTemp.name = player.name;
        
 		  }
 		}
-		myDataRef.set(playersTemp);
+		playerData.update(playersTemp);
     console.info('set');
 	}
   }, false);
