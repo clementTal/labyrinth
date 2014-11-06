@@ -15,19 +15,6 @@ function initSynchro(){
     }
   });
 
-  myDataRef.on('child_added', function(snapshot) {
-    var player = snapshot.val();
-    for (var i = 0; i < players.length; i++) {
-      if (players[i].name === player.name) {
-          players[i].x = player.x;
-          players[i].y = player.y;
-          players[i].direction = player.direction;
-          players[i].moves = player.moves;
-      }
-    }
-  });
-}
-
 function getPlayer(){
 	var player;
 	for (var i = 0; i < players.length; i++){
