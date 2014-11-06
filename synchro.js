@@ -1,8 +1,10 @@
-var myDataRef;
+var playersData;
+var mapData;
 function initSynchro(){
-  myDataRef = new Firebase('https://resplendent-inferno-5296.firebaseio.com/');
-  initHandler('child_changed');
-  initHandler('child_added');
+  playersData = new Firebase('https://resplendent-inferno-5296.firebaseio.com/players');
+  mapData = new Firebase('https://resplendent-inferno-5296.firebaseio.com/map');
+  initPlayersHandler('child_changed');
+  initPlayersHandler('child_added');
 }
 
 /**
@@ -76,7 +78,7 @@ function login()  {
 * save position ^^
 */
 function sendPosition(player)  {
-  var playerData = myDataRef.child(player.name);
+  var playerData = playersData.child(player.name);
   var playersTemp = {};
   for (var i = 0; i < players.length; i++) {
 
@@ -90,8 +92,8 @@ function sendPosition(player)  {
 /**
 * init firebase handler
 */
-function initHandler(handlerName) {
- myDataRef.on(handlerName, function(snapshot) {
+function initPlayersHandler(handlerName) {
+ playersData.on(handlerName, function(snapshot) {
   var player = snapshot.val();
   for (var i = 0; i < players.length; i++) {
     if (players[i].name === player.name) {
@@ -110,4 +112,20 @@ function setPlayerFromServer(playerFrom, playerTo) {
   playerTo.direction = playerFrom.direction;
   playerTo.moves = playerFrom.moves;
   playerTo.name = playerFrom.name;  
+}
+
+/**
+* Save a map
+*/ 
+function saveMap(map) {
+  mapData.set(map);
+}
+
+/**
+* is triggerd on map change
+*/
+function initMapHandler(handlerName) {
+  mapData.on(handlerName, function(snapshot) {
+    displayMap(snapshot);
+  });
 }
