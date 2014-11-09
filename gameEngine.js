@@ -3,6 +3,25 @@ img.src = 'indiana_jones.gif'; // Définit le chemin vers sa source
 var mapSprite =  new Image();   // Crée un nouvel objet Image
 mapSprite.src = 'images/map-sprite.png'; // Définit le chemin vers sa source
 
+var tilesCollisons = [
+	[false,false,false,false],
+	[true,true,true,true],
+	[false,true,true,true],
+	[true,false,true,true],
+	[true,true,false,true],
+	[true,true,true,false],
+	[false,false,true,true],
+	[true,false,false,true],
+	[true,true,false,false],
+	[false,true,true,false],
+	[false,true,false,true],
+	[true,false,true,false],
+	[true,false,false,false],
+	[false,true,false,false],
+	[false,false,true,false],
+	[false,false,false,true]
+];
+
 var gameEngine = (function(){
 	var realGameWidth;
 	var realGameHeight;
@@ -200,4 +219,27 @@ function generateRandomWeightedGrid(gridWidth,gridHeight){
 		}
 	}
 	return grid;
+}
+
+function isTileWalkable(x,y,direction){
+	var tileID = gameGrid[y][x];
+	var tideDepID;
+	var tileWalkable = false;
+	
+	if(direction === 'up'){
+		tideDepID = gameGrid[y+1][x];
+		tileWalkable = !tilesCollisons[tileID][2] && !tilesCollisons[tideDepID][0];
+	}else if(direction === 'right'){
+		tideDepID = gameGrid[y][x-1];
+		tileWalkable = !tilesCollisons[tileID][3] && !tilesCollisons[tideDepID][1];
+	}else if(direction === 'down'){
+		tideDepID = gameGrid[y-1][x];
+		tileWalkable = !tilesCollisons[tileID][0] && !tilesCollisons[tideDepID][2];
+	}else if(direction === 'left'){
+		tideDepID = gameGrid[y][x+1];
+		tileWalkable = !tilesCollisons[tileID][1] && !tilesCollisons[tideDepID][3];
+	}
+	
+	console.log("from " + tideDepID + " to " + tileID);
+	return tileWalkable;
 }

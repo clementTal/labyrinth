@@ -1,5 +1,6 @@
 var gameGrid = generateRandomWeightedGrid(20,12);
-var players=[];
+
+var players = [];
 
 var gridWidth = 50;
 

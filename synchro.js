@@ -37,7 +37,7 @@ function login()  {
     //down
     var player = getPlayer();
     if(!player.moves){
-      if (event.keyCode === 40){
+      if (event.keyCode === 40 && isTileWalkable(player.x,player.y+1,'down')){
         if (player.y < gameGrid.length-1) {
          player.moves = true;
          player.direction = 'down';
@@ -47,7 +47,7 @@ function login()  {
        }
      }
 		//up
-		if (event.keyCode === 38){
+		if (event.keyCode === 38 && isTileWalkable(player.x,player.y-1,'up')){
       if (player.y != 0) {
        player.moves = true;
        player.direction = 'up';
@@ -57,7 +57,7 @@ function login()  {
      }
    }
 		//left
-		if (event.keyCode === 37){
+		if (event.keyCode === 37 && isTileWalkable(player.x-1,player.y,'left')){
 			player.moves = true;
 			player.direction = 'left';
       if (player.x != 0) {
@@ -67,7 +67,7 @@ function login()  {
      }
    }
 		//right
-		if (event.keyCode === 39){
+		if (event.keyCode === 39 && isTileWalkable(player.x+1,player.y,'right')){
 			player.moves = true;
 			player.direction = 'right';
       if (player.x < gameGrid[0].length-1) {
