@@ -5,13 +5,13 @@ var randomNumber;
 function initSynchro(){
   var allDataBase = new Firebase('https://resplendent-inferno-5296.firebaseio.com');
   playersData = new Firebase('https://resplendent-inferno-5296.firebaseio.com/players');
-  mapData = new Firebase('https://resplendent-inferno-5296.firebaseio.com/map');
-  allDataBase.remove();
-  getMaster();
+  mapData = new Firebase('https://resplendent-inferno-5296.firebaseio.com/tutu');
+  //playersData.remove();
   initPlayersHandler('child_changed');
   initPlayersHandler('child_added');
   initMapHandler('child_changed');
   initMapHandler('child_added');
+  initMapHandler('child_changed');
 }
 
 /**
@@ -135,7 +135,7 @@ function setPlayerFromServer(playerFrom, playerTo) {
 * Save a map
 */ 
 function saveMap(map) {
-  mapData.set(JSON.stringify(map));
+  mapData.set({map: JSON.stringify(map)});
 }
 
 /**
@@ -151,18 +151,9 @@ function initMapHandler(handlerName) {
 /**
 * Set the master of the game (who can generate the map)
 */
-function getMaster() {
-  var randomDb = new Firebase('https://resplendent-inferno-5296.firebaseio.com/master');
-  randomNumber = Math.floor(Math.random() * (1000));
-  randomDb.on('child_added', function(snapshot) {
-      iAmMaster = false;
-    if (randomNumber > snapshot.val()) {
-      iAmMaster = true;
-  	  gameGrid = generateRandomWeightedGrid(20,12);
-  	  saveMap(gameGrid);
-    }
-  });
-  randomDb.push(randomNumber);
+function reloadMap() {
+  var grid = generateRandomWeightedGrid(20,12);
+  saveMap(grid);
 }
 
 function initPLayer(){
