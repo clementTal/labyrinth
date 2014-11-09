@@ -156,6 +156,8 @@ function getMaster() {
       iAmMaster = false;
     if (randomNumber > snapshot) {
       iAmMaster = true;
+	  gameGrid = generateRandomWeightedGrid(20,12);
+	  saveMap(gameGrid);
     }
   });
   randomDb.push(randomNumber);
