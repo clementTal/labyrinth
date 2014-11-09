@@ -135,7 +135,7 @@ function setPlayerFromServer(playerFrom, playerTo) {
 * Save a map
 */ 
 function saveMap(map) {
-  mapData.set(map);
+  mapData.set(JSON.stringify(map));
 }
 
 /**
@@ -143,7 +143,7 @@ function saveMap(map) {
 */
 function initMapHandler(handlerName) {
   mapData.on(handlerName, function(snapshot) {
-    gameGrid = snapshot.val();
+    gameGrid = JSON.parse(snapshot.val());
   });
 }
 
@@ -160,9 +160,6 @@ function getMaster() {
       iAmMaster = true;
   	  gameGrid = generateRandomWeightedGrid(20,12);
   	  saveMap(gameGrid);
-    }
-    else {
-      mapData.get()
     }
   });
   randomDb.push(randomNumber);
