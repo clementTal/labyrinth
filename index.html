@@ -12,36 +12,54 @@
 			padding:0;
 		}
 		#game-container{
-			margin-top:20px;
+			margin:20px;
 		}
-		.tile{
-			width:50px;
-			height:50px;
-			display:inline-block;
-			margin:0;
-			padding:0;
-			border:1px solid grey;
+		.outer-connexion {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: rgba(0, 0, 0, 0.7);
 		}
-		.tile.t-0{
-			background-color:antiquewhite;
-			
+		.connexion {
+			position: absolute;
+			top: 20%;
+			left: 50%;
+			padding: 10px;
+			width: 300px;
+			margin-left: -150px;
+			border: 1px solid black;
+			background-color: grey;
 		}
-		.tile.red{
-			background-color:red;
+		.connexion > .login-title{
+			font-size: 25px;
+			margin: 10px auto;
+			text-align: center;
 		}
-		.tile.blue{
-			background-color:blue;
+		.connexion > input{
+			width: 100%;
+			margin-top: 10px;
 		}
-		.tile.red.blue{
-			background-color:violet;
+		.connexion > button{
+			float: right;
+			margin-top: 15px; 
+			padding: 5px 10px;
+			border-radius: 3px;
 		}
     </style>
 </head>
 <body>
-	Entrez votre nom:
-	<input type="text" id="nom-joueur"></input> <button id='login'>Login</button>
+	<div class="outer-connexion" id='connexion-form'>
+		<div class="connexion">
+			<div class="login-title">Login </div>
+			<label for="nom-joueur">Entrez votre nom:</label>
+			<input type="text" id="nom-joueur"></input> 
+			<button id='login'>Login</button>
+		</div>
+	</div>
 	<canvas id="game-container" width="800" height="480">
             Le navigateur que vous utilisez est une grosse bouse, merci d'utiliser un navigateur décent.
-        </canvas>
+    </canvas>
 </body>
 </html>

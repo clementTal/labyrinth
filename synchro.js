@@ -31,6 +31,7 @@ function getPlayer(){
 function login()  {
   //Init player position
   initPLayer();
+  document.getElementById('connexion-form').style.display = 'none';
 
   window.addEventListener("keydown", function(event) {
     //down
