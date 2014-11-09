@@ -119,7 +119,7 @@ function updatePlayers(players){
 function updatePlayer(player){
 	if(player.moves){
 		var timeToMove = 1000;
-		var pas = 2;//TODO tileSize/timeToMove/gameEngine.FPS;
+		var pas = 4;//TODO tileSize/timeToMove/gameEngine.FPS;
 		var playerUpdated = false;
 		/* case left */
 		if(player.direction == 'left'){
@@ -178,6 +178,25 @@ function generateRandomGrid(gridWidth,gridHeight){
 		grid.push([]);
 		for(var j = 0; j< gridWidth; j++){
 			grid[i].push(getRandomNumber(0,15));
+		}
+	}
+	return grid;
+}
+
+function generateRandomWeightedGrid(gridWidth,gridHeight){
+	var grid = [];
+	var weights = [25,8,8,8,8,8,8,8,8,8,8,8,25,25,25,25];
+	var weightsGrid = [];
+	for(var i = 0; i< weights.length; i++){
+		for(var j = 0; j< weights[i]; j++){
+			weightsGrid.push(i);
+		}
+	}
+	
+	for(var i = 0; i< gridHeight; i++){
+		grid.push([]);
+		for(var j = 0; j< gridWidth; j++){
+			grid[i].push(weightsGrid[getRandomNumber(0,weightsGrid.length-1)]);
 		}
 	}
 	return grid;

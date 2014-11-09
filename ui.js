@@ -1,4 +1,4 @@
-var gameGrid = generateRandomGrid(20,12);
+var gameGrid = generateRandomWeightedGrid(20,12);
 var players=[
 	{
 		name:"thomas",
