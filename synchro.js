@@ -99,12 +99,20 @@ function sendPosition(player)  {
 * init firebase handler
 */
 function initPlayersHandler(handlerName) {
- playersData.on(handlerName, function(snapshot) {
+  playersData.on(handlerName, function(snapshot) {
   var player = snapshot.val();
+  var newPlayer = true; 
   for (var i = 0; i < players.length; i++) {
     if (players[i].name === player.name) {
       setPlayerFromServer(player, players[i]);
+      newPlayer = false;
     }
+  }
+  if (newPlayer){
+    player.xReal = 0;
+    player.yReal = 0;
+    player.tileId = 0;
+    players.push(player);
   }
 });
 }
@@ -157,7 +165,6 @@ function initPLayer(){
     name: getNomJoueur(),
     x:0,
     y:0,
-    color: "blue",
     tileId:1,
     xReal:0,
     yReal:0,

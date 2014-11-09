@@ -1,28 +1,5 @@
 var gameGrid = generateRandomWeightedGrid(20,12);
-var players=[
-	{
-		name:"thomas",
-		x:0,
-		y:0,
-		color: "blue",
-		tileId:1,
-		xReal:0,
-		yReal:0,
-		direction:"",
-		moves: false
-	},
-	{
-		name:"clement",
-		x:0,
-		y:0,
-		color: "red",
-		tileId:2,
-		xReal:0,
-		yReal:0,
-		direction:"",
-		moves: false
-	}
-];
+var players=[];
 
 var gridWidth = 50;
 
