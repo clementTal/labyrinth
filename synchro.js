@@ -2,16 +2,17 @@ var playersData;
 var mapData;
 var iAmMaster = true;
 var randomNumber;
+var gameList;
 function initSynchro(){
   var allDataBase = new Firebase('https://resplendent-inferno-5296.firebaseio.com');
   playersData = new Firebase('https://resplendent-inferno-5296.firebaseio.com/players');
-  mapData = new Firebase('https://resplendent-inferno-5296.firebaseio.com/tutu');
+  mapData = new Firebase('https://resplendent-inferno-5296.firebaseio.com/map');
+  gameList = new Firebase('https://resplendent-inferno-5296.firebaseio.com/games');
   //playersData.remove();
   initPlayersHandler('child_changed');
   initPlayersHandler('child_added');
   initMapHandler('child_changed');
-  initMapHandler('child_added');
-  initMapHandler('child_changed');
+  initGamesHandler('child_added');
 }
 
 /**
@@ -147,6 +148,43 @@ function initMapHandler(handlerName) {
   });
 }
 
+/**
+* is triggerd on game added
+*/
+function initGamesHandler(handlerName) {
+  gameList.on(handlerName, function(snapshot) {
+    var element = document.createElement('li');
+    element.innerHTML = '<li onclick="joinGame(\''+snapshot.name()+'\');">partie de '+snapshot.val().creatorName+'</li>';
+    document.getElementById('games-list').appendChild(element);
+  });
+}
+
+
+/**
+* Create a new game
+*/
+function createGame() {
+  playersData.remove();
+  var grid = generateRandomWeightedGrid(20,12);
+  saveMap(grid);
+  var newGame = {
+    grid: JSON.stringify(grid), 
+    creatorName: getNomJoueur()
+  }
+  gameList.push(newGame);
+}
+
+function joinGame(gameId) {
+  var gameData = new Firebase('https://resplendent-inferno-5296.firebaseio.com/games/'+gameId);
+  gameData.once('value', function(snapshot) {
+    gameGrid = JSON.parse(snapshot.val().grid);
+    playersData.off('child_changed');
+    playersData.off('child_added');
+    playersData = new Firebase('https://resplendent-inferno-5296.firebaseio.com/games/'+gameId+'/playes');
+    initPlayersHandler('child_changed');
+    initPlayersHandler('child_added');
+  });
+}
 
 /**
 * Set the master of the game (who can generate the map)

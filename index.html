@@ -1,8 +1,9 @@
 <html>
 <head>
-<script type="text/javascript" async="" src="gameEngine.js"></script>
-<script type="text/javascript" async="" src="synchro.js"></script>
-<script type="text/javascript" async="" src="ui.js"></script>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" async="" src="gameEngine.js"></script>
+	<script type="text/javascript" async="" src="synchro.js"></script>
+	<script type="text/javascript" async="" src="ui.js"></script>
     <script src='https://cdn.firebase.com/js/client/1.1.1/firebase.js'></script>
 		
 
@@ -10,6 +11,7 @@
 		body{
 			margin:0;
 			padding:0;
+			height: 100%;
 		}
 		#game-container{
 			margin:20px;
@@ -47,20 +49,40 @@
 			padding: 5px 10px;
 			border-radius: 3px;
 		}
+		.main-container {
+			display: inline-block;
+			width: 60%;
+		}
+		.left-contener {
+			display: inline-block;
+			float: right;
+			width: 30%;
+			padding: 20px;
+			margin-top: 10px;
+			border: 1px solid grey;
+		}
     </style>
 </head>
 <body>
-	<div class="outer-connexion" id='connexion-form'>
-		<div class="connexion">
-			<div class="login-title">Login </div>
-			<label for="nom-joueur">Entrez votre nom:</label>
-			<input type="text" id="nom-joueur"></input> 
-			<button id='login'>Login</button>
+	<div class="main-container">
+		<div class="outer-connexion" id='connexion-form'>
+			<div class="connexion">
+				<div class="login-title">Login </div>
+				<label for="nom-joueur">Entrez votre nom:</label>
+				<input type="text" id="nom-joueur"></input> 
+				<button id='login'>Login</button>
+			</div>
 		</div>
+		<canvas id="game-container" width="800" height="480">
+	            Le navigateur que vous utilisez est une grosse bouse, merci d'utiliser un navigateur décent.
+	    </canvas>
 	</div>
-	<canvas id="game-container" width="800" height="480">
-            Le navigateur que vous utilisez est une grosse bouse, merci d'utiliser un navigateur décent.
-    </canvas>
-    <button onclick="reloadMap()">Recharge carte</button>
+    <div class="left-contener">
+    	Liste des parties
+		<ul id="games-list">
+
+		</ul>
+		<button onclick="createGame()">Créer une partie</button>
+    </div>
 </body>
 </html>
