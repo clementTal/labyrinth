@@ -30,6 +30,7 @@ function getPlayer(){
 */
 function login()  {
   //Init player position
+  initPLayer();
 
   window.addEventListener("keydown", function(event) {
     //down
@@ -149,6 +150,22 @@ function getMaster() {
     }
   });
   randomDb.push(randomNumber);
+}
 
-
+function initPLayer(){
+  var player = {
+    name: getNomJoueur(),
+    x:0,
+    y:0,
+    color: "blue",
+    tileId:1,
+    xReal:0,
+    yReal:0,
+    direction:"",
+    moves: false
+  };
+  players.push(player);
+  var playerToInit = {};
+  setPlayerFromServer(player, playerToInit);
+  sendPosition(playerToInit);
 }
