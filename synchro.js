@@ -141,7 +141,7 @@ function saveMap(map) {
 */
 function initMapHandler(handlerName) {
   mapData.on(handlerName, function(snapshot) {
-    updateMap(snapshot);
+    gameGrid = snapshot;
   });
 }
 
