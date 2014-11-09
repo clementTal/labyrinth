@@ -204,7 +204,7 @@ function generateRandomGrid(gridWidth,gridHeight){
 
 function generateRandomWeightedGrid(gridWidth,gridHeight){
 	var grid = [];
-	var weights = [25,8,8,8,8,8,8,8,8,8,8,8,25,25,25,25];
+	var weights = [25,8,8,8,8,8,8,8,8,8,8,8,100,100,100,1];
 	var weightsGrid = [];
 	for(var i = 0; i< weights.length; i++){
 		for(var j = 0; j< weights[i]; j++){
@@ -228,16 +228,16 @@ function isTileWalkable(x,y,direction){
 	
 	if(direction === 'up'){
 		tideDepID = gameGrid[y+1][x];
-		tileWalkable = !tilesCollisons[tileID][2] && !tilesCollisons[tideDepID][0];
+		tileWalkable = !tilesCollisons[tideDepID][0] &&!tilesCollisons[tileID][2];
 	}else if(direction === 'right'){
 		tideDepID = gameGrid[y][x-1];
-		tileWalkable = !tilesCollisons[tileID][3] && !tilesCollisons[tideDepID][1];
+		tileWalkable = !tilesCollisons[tideDepID][1] && !tilesCollisons[tileID][3];
 	}else if(direction === 'down'){
 		tideDepID = gameGrid[y-1][x];
-		tileWalkable = !tilesCollisons[tileID][0] && !tilesCollisons[tideDepID][2];
+		tileWalkable = !tilesCollisons[tideDepID][2] && !tilesCollisons[tileID][0];
 	}else if(direction === 'left'){
 		tideDepID = gameGrid[y][x+1];
-		tileWalkable = !tilesCollisons[tileID][1] && !tilesCollisons[tideDepID][3];
+		tileWalkable = !tilesCollisons[tideDepID][3] && !tilesCollisons[tileID][1];
 	}
 	
 	console.log("from " + tideDepID + " to " + tileID);
